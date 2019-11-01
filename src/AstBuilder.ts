@@ -8,8 +8,6 @@ export type Attributes = {
     [k in string]: Primitive
 }
 
-export type Visitor = (node: AstNode) => void
-
 /**
  * Represents an AST node in the DSL's object hierarchy.
  */
@@ -47,10 +45,9 @@ export class AstNode {
     }
 
     postOrder<T>(visitor: (node: AstNode, children: Array<T>) => T): T {
-        let values = this.children.reverse().map(x => x.postOrder(visitor))
+        let values = this.children.map(x => x.postOrder(visitor))
         return visitor(this, values)
     }
-
 }
 
 export class AstNodeFactory extends AbstractFactory<AstNode, AstNode> {
@@ -61,12 +58,10 @@ export class AstNodeFactory extends AbstractFactory<AstNode, AstNode> {
         this.opts = opts
     }
 
-    // noinspection JSUnusedGlobalSymbols
     newInstance(builder: JsDsl, name: string, attr: Attributes, value: Value) {
         return new AstNode(name, attr, value)
     }
 
-    // noinspection JSMethodCanBeStatic,JSUnusedGlobalSymbols
     setChild(builder: JsDsl, parent: AstNode, child: AstNode) {
         parent.addChild(child)
     }
@@ -78,7 +73,7 @@ export class AstNodeFactory extends AbstractFactory<AstNode, AstNode> {
 }
 
 export class AstBuilder extends JsDsl {
-    constructor(nonTerminals: Array<string>, terminals: Array<string>) {
+    constructor(nonTerminals: Array<string>, terminals: Array<string> = []) {
         super()
         nonTerminals.forEach(x => this.registerFactory(x, new AstNodeFactory()));
         terminals.forEach(x => this.registerFactory(x, new AstNodeFactory({ isLeaf: true })));

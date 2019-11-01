@@ -1,8 +1,8 @@
 {
-  "name": "js.html-builder",
-  "version": "1.1.4",
-  "description": "Javascript DSL for HTML",
-  "main": "dist/HtmlBuilder.js",
+  "name": "ast-builder",
+  "version": "1.0.1",
+  "description": "DSL AST Builder",
+  "main": "dist/AstBuilder.js",
   "scripts": {
     "pretest": "npm run build:src",
     "test": "TS_NODE_COMPILER_OPTIONS='{\"noImplicitAny\":false}' mocha ",
@@ -26,7 +26,6 @@
     "xpath": "0.0.27"
   },
   "dependencies": {
-    "js-dsl": "^1.1.0",
-    "lodash": "^4.17.15"
+    "js-dsl": "^1.1.0"
   }
 }
