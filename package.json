@@ -1,5 +1,5 @@
 {
-  "name": "ast-builder",
+  "name": "js-ast-builder",
   "version": "1.0.1",
   "description": "DSL AST Builder",
   "main": "dist/AstBuilder.js",
